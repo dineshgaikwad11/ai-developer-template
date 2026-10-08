@@ -18,7 +18,7 @@ Build secure, maintainable full-stack software with explicit ownership boundarie
 - Use async APIs end-to-end, propagate `CancellationToken`, and avoid blocking calls.
 - Handle errors centrally. Return RFC 7807 Problem Details; never expose stack traces or secrets to clients.
 - Use structured logs and correlation/trace identifiers. Never log credentials, tokens, or sensitive personal data.
-- Persist UTC timestamps as `DateTimeOffset`. Use EF Core migrations for schema changes; never edit production schema manually.
+- Prefer UTC `DateTimeOffset` for persisted instants. A requested public contract may use `DateTime` (for example Employee `CreatedAt`); record such exceptions in `docs/adr/`. Use EF Core migrations for schema changes; never edit production schema manually.
 - Keep configuration outside source code. Commit placeholders only; use local secret stores and deployment secret managers.
 
 ## Quality Gates
@@ -29,3 +29,11 @@ Build secure, maintainable full-stack software with explicit ownership boundarie
 
 ## Source of Truth
 Follow the scoped instructions in `.github/instructions/`, the agent boundaries in `.github/agents/`, and the architecture decisions in `docs/`. If instructions conflict, follow the narrower applicable instruction and report unresolved contradictions.
+
+## Customization Map and Flow
+- **Instructions** (`.github/instructions/*.instructions.md`): always-on rules, applied automatically by `applyTo` glob.
+- **Prompts** (`.github/prompts/*.prompt.md`): task entry points run as `/feature`, `/bug`, `/refactor`, `/review`, `/documentation`; each selects its starting agent.
+- **Agents** (`.github/agents/*.agent.md`): roles with boundaries and handoffs. Standard chain: Architect -> Database Developer -> Backend Developer -> Frontend Developer -> Tester -> Code Reviewer.
+- **Skills** (`.github/skills/<name>/SKILL.md`): on-demand procedures (`code-review`, `testing`, `security`, `documentation`, `git`) loaded when relevant.
+- **Docs**: requirements in `docs/requirements/`, decisions in `docs/adr/`, standards and architecture in `docs/`.
+- Start features from a requirements file, record decisions as ADRs, and keep these files consistent with the code in the same change.

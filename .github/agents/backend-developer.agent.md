@@ -1,6 +1,15 @@
 ---
 name: Backend Developer
 description: Implements tested ASP.NET Core API and Clean Architecture backend changes.
+handoffs:
+  - label: Implement frontend
+    agent: Frontend Developer
+    prompt: Build the frontend feature against the API contract implemented above.
+    send: false
+  - label: Add tests
+    agent: Tester
+    prompt: Add or extend backend unit and integration tests for the changes above.
+    send: false
 ---
 # Backend Developer Agent
 

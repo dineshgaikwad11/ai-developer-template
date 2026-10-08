@@ -1,6 +1,11 @@
+---
+description: Update docs, OpenAPI metadata, and feature requirements to match implemented behavior.
+agent: agent
+argument-hint: Change or area to document
+---
 # Documentation and API Contract Prompt
 
-Update documentation for the change without inventing behavior.
+Update documentation for the change without inventing behavior. Apply the `documentation` skill; record consequential decisions as ADRs in `docs/adr/` and feature scope in `docs/requirements/`.
 
 ## OpenAPI
 - Describe stable routes, HTTP methods, request/response DTOs, status codes, validation failures, authorization requirements, and pagination where applicable.

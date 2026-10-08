@@ -3,12 +3,12 @@ set -euo pipefail
 
 repository_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 directories=(
-  ".github/instructions" ".github/agents" ".github/workflows"
-  "ai/skills/generic/code-review" "ai/skills/generic/testing" "ai/skills/generic/security"
-  "ai/skills/generic/git" "ai/skills/generic/documentation" "ai/skills/project" "ai/prompts" "docs"
+  ".github/instructions" ".github/agents" ".github/prompts" ".github/workflows"
+  ".github/skills/code-review" ".github/skills/testing" ".github/skills/security"
+  ".github/skills/git" ".github/skills/documentation" "docs/requirements" "docs/adr"
   "src/backend/Core/Domain/Entities" "src/backend/Core/Domain/ValueObjects"
   "src/backend/Core/Domain/Enums" "src/backend/Core/Domain/Events"
-  "src/backend/Core/Application/Commands" "src/backend/Core/Application/Queries"
+  "src/backend/Core/Application/Features"
   "src/backend/Core/Application/Common/Behaviors" "src/backend/Infrastructure/Persistence/Configurations"
   "src/backend/Infrastructure/Persistence/Interceptors" "src/backend/Infrastructure/Identity"
   "src/backend/API/Controllers/V1" "src/backend/API/Middleware" "src/backend/API/Extensions"

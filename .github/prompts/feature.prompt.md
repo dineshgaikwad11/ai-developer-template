@@ -1,9 +1,15 @@
+---
+description: Plan and deliver an end-to-end feature across Domain, Application, Infrastructure, API, and React.
+agent: Architect
+argument-hint: Describe the user outcome, actors, acceptance criteria, and constraints
+---
 # Full-Stack Feature Prompt
 
 ## Request
-Describe the user outcome, actors, acceptance criteria, and constraints:
+Treat the user's message (or the linked `docs/requirements/` file) as the feature request: outcome, actors, acceptance criteria, and constraints.
 
-> [Feature description]
+## Agent Flow
+Architect (boundaries, decisions) -> Database Developer (schema, only if persistence changes) -> Backend Developer -> Frontend Developer -> Tester -> Code Reviewer. Use each agent's handoff button; apply the `testing`, `security`, and `documentation` skills as needed.
 
 ## Workflow
 1. Inspect existing domain, API, frontend modules, architecture docs, and tests. Identify the narrowest owning boundary.

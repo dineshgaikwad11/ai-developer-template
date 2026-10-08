@@ -1,4 +1,6 @@
 ---
+name: Backend
+description: ASP.NET Core Clean Architecture, CQRS, validation, API, and error-handling rules for backend C# code.
 applyTo: "src/backend/**/*.cs"
 ---
 # ASP.NET Core Backend

@@ -1,6 +1,11 @@
+---
+description: Review a change for correctness, security, compatibility, and test gaps without editing files.
+agent: Code Reviewer
+argument-hint: Branch, PR, files, or description of the change to review
+---
 # Code Review Prompt
 
-Review the proposed change against the task requirements and repository guidance. Do not edit files.
+Review the proposed change against the task requirements and repository guidance. Do not edit files. Apply the `code-review` skill, and the `security` skill for sensitive paths.
 
 ## Review Order
 1. Correctness and data integrity defects.

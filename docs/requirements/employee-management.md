@@ -17,7 +17,7 @@ Implement employee creation and active-employee listing using the existing ASP.N
 
 ## Tasks
 
-- [x] Add this feature checklist at `docs/employee-management.md`.
+- [x] Add this feature checklist at `docs/requirements/employee-management.md`.
 - [x] Add the domain entity, create/output DTOs, create command and handler, active-employee query and handler, and FluentValidation rules.
 - [x] Add `AppDbContext`, the employee DbSet, explicit EF configuration (bounded lengths, email index, salary precision `18,2`), SQL Server registration, and design-time migration support.
 - [x] Add the SQL Server `InitialCreate` migration and verify its schema and generated SQL.
