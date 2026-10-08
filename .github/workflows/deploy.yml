@@ -1,0 +1,117 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  build-api:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet restore src/backend/AI-Developer-Template.sln
+      - run: dotnet build src/backend/AI-Developer-Template.sln --no-restore --configuration Release
+      - run: dotnet test src/backend/AI-Developer-Template.sln --no-build --configuration Release
+      - run: dotnet publish src/backend/API/API.csproj --configuration Release --no-build --output ${{ github.workspace }}/publish/api
+      - uses: actions/upload-artifact@v4
+        with:
+          name: api-package
+          path: publish/api
+          if-no-files-found: error
+          retention-days: 7
+
+  build-web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate public API URL
+        env:
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+        run: |
+          if [[ ! "$VITE_API_BASE_URL" =~ ^https://[^[:space:]]+/api$ ]]; then
+            echo "Set the VITE_API_BASE_URL repository variable to https://<api-host>/api"
+            exit 1
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+      - name: Verify SPA routing config is packaged
+        run: test -f dist/web.config
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-package
+          path: src/frontend/dist
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy-api:
+    needs: [build-api, build-web]
+    runs-on: ubuntu-latest
+    environment:
+      name: production-api
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: api-package
+          path: api
+      - name: Validate deployment settings
+        env:
+          APP_NAME: ${{ vars.AZURE_API_APP_NAME }}
+          PUBLISH_PROFILE: ${{ secrets.AZURE_API_PUBLISH_PROFILE }}
+        run: |
+          test -n "$APP_NAME" || { echo "Set the AZURE_API_APP_NAME variable."; exit 1; }
+          test -n "$PUBLISH_PROFILE" || { echo "Set the AZURE_API_PUBLISH_PROFILE secret."; exit 1; }
+      - id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_API_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE }}
+          package: api
+
+  deploy-web:
+    needs: [build-api, build-web]
+    runs-on: ubuntu-latest
+    environment:
+      name: production-web
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-package
+          path: web
+      - name: Validate deployment settings
+        env:
+          APP_NAME: ${{ vars.AZURE_WEB_APP_NAME }}
+          PUBLISH_PROFILE: ${{ secrets.AZURE_WEB_PUBLISH_PROFILE }}
+        run: |
+          test -n "$APP_NAME" || { echo "Set the AZURE_WEB_APP_NAME variable."; exit 1; }
+          test -n "$PUBLISH_PROFILE" || { echo "Set the AZURE_WEB_PUBLISH_PROFILE secret."; exit 1; }
+      - id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEB_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEB_PUBLISH_PROFILE }}
+          package: web
