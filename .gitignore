@@ -1,0 +1,30 @@
+# .NET
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+TestResults/
+coverage/
+
+# Frontend
+node_modules/
+dist/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+appsettings.*.json
+!appsettings.Development.example.json
+secrets.json
+*.pfx
+*.key
+
+# IDE / OS
+.idea/
+.DS_Store
+Thumbs.db
