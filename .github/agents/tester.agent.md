@@ -1,6 +1,11 @@
 ---
 name: Tester
 description: Plans and implements deterministic backend, frontend, integration, and browser tests.
+handoffs:
+  - label: Review changes
+    agent: Code Reviewer
+    prompt: Review the implementation and tests above against the requirements and repository guidance.
+    send: false
 ---
 # Tester Agent
 

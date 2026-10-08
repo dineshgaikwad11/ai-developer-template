@@ -1,4 +1,6 @@
 ---
+name: Security
+description: Authentication, authorization, secrets, CORS, validation, and OWASP rules for all source code.
 applyTo: "src/**/*.{cs,ts,tsx,js,jsx,json,yml,yaml}"
 ---
 # Security Requirements

@@ -1,4 +1,6 @@
 ---
+name: Database
+description: EF Core, migration, indexing, soft-delete, and persistence rules for Infrastructure code.
 applyTo: "src/backend/Infrastructure/**/*.cs"
 ---
 # Database and Persistence

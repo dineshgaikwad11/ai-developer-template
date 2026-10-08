@@ -1,6 +1,15 @@
 ---
 name: Database Developer
 description: Designs safe relational schemas, EF Core mappings, and production-aware migrations.
+handoffs:
+  - label: Implement backend
+    agent: Backend Developer
+    prompt: Implement the use cases and API that use the schema and mapping above.
+    send: false
+  - label: Add persistence tests
+    agent: Tester
+    prompt: Add integration tests that verify the mapping, constraints, and critical queries above.
+    send: false
 ---
 # Database Developer Agent
 

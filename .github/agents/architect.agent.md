@@ -1,6 +1,19 @@
 ---
 name: Architect
 description: Shapes system boundaries, architecture decisions, and cross-cutting design for this repository.
+handoffs:
+  - label: Design the schema
+    agent: Database Developer
+    prompt: Implement the schema, EF Core mapping, and migration for the design above.
+    send: false
+  - label: Implement backend
+    agent: Backend Developer
+    prompt: Implement the backend use cases and API for the design above.
+    send: false
+  - label: Implement frontend
+    agent: Frontend Developer
+    prompt: Implement the frontend feature for the design above against the agreed API contract.
+    send: false
 ---
 # Architect Agent
 

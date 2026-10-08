@@ -31,16 +31,15 @@ Employee endpoints require a migrated SQL Server database and a configured JWT a
 Copy `src/backend/API/appsettings.Development.example.json` to a local development settings file or use .NET user secrets. Configure `Authentication:Authority` and `Authentication:Audience` for the existing JWT provider and connect a browser token provider with `setAccessTokenProvider`. Use `src/frontend/.env.example` as a reference. Never commit credentials. `VITE_*` values are public build-time configuration and must not contain secrets.
 
 ## Repository Map
-- `.github/`: Copilot instructions, scoped engineering guidance, role agents, and CI workflow.
-- `ai/prompts/` and `ai/skills/`: repeatable task prompts and domain guidance for AI-assisted changes.
-- `docs/`: architecture, standards, data, security, and deployment decisions.
+- `.github/`: Copilot instructions, scoped rules (`instructions/`), role agents with handoffs (`agents/`), task prompts (`prompts/`), on-demand skills (`skills/`), and the CI/deploy workflows.
+- `docs/`: architecture, standards, data, security, and deployment guides, plus `requirements/` (one file per feature) and `adr/` (decision records).
 - `src/backend/`: Domain, Application, Infrastructure, API, and tests.
 - `src/frontend/`: shared application shell and feature modules.
 - `deploy/`: Docker and Kubernetes examples; review and tailor before production use.
 - `scripts/`: cross-platform directory/bootstrap helpers.
 
 ## Start a Feature
-Use `ai/prompts/feature.md` to scope an end-to-end vertical slice. Keep domain rules in Domain, coordinate use cases in Application, add persistence details in Infrastructure, expose versioned API contracts, then consume them from a frontend feature. Add tests at each affected boundary and update docs when contracts change.
+Write a requirements file in `docs/requirements/`, then run the `/feature` prompt in Copilot Chat. It starts with the Architect agent and hands off through Database, Backend, Frontend, Tester, and Code Reviewer agents. Keep domain rules in Domain, coordinate use cases in Application, add persistence details in Infrastructure, expose API contracts, then consume them from a frontend feature. Add tests at each affected boundary, record decisions in `docs/adr/`, and update docs when contracts change.
 
 ## Production Readiness
 This repository is a secure-by-default starting point, not a turnkey deployment. Configure a real OIDC provider, authorization policies, TLS ingress, secret management, database backups, dependency scanning, observability, and environment approvals before production. Review the deployment and security guides before release.

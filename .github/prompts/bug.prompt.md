@@ -1,10 +1,12 @@
+---
+description: Reproduce, root-cause, and fix a bug with a regression test.
+agent: agent
+argument-hint: Observed vs expected behavior, reproduction steps, environment, impact
+---
 # Bug Investigation and Fix Prompt
 
 ## Incident
-- Observed behavior: [what happened]
-- Expected behavior: [what should happen]
-- Reproduction / environment: [steps, version, relevant logs]
-- Impact and urgency: [users/data/systems affected]
+Use the user's message for: observed behavior, expected behavior, reproduction/environment, and impact/urgency. Ask only for what is missing. Apply the `testing` skill for the regression test and the `security` skill if the path is security-sensitive.
 
 ## Workflow
 1. Reproduce the failure with the cheapest reliable check. Record the failing test, request, log, or diagnostic.

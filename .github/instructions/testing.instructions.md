@@ -1,4 +1,6 @@
 ---
+name: Testing
+description: xUnit, Vitest, Testing Library, and Playwright standards for deterministic tests.
 applyTo: "**/*.{cs,ts,tsx,js,jsx}"
 ---
 # Testing Standards

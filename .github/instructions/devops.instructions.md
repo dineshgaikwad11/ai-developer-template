@@ -1,4 +1,6 @@
 ---
+name: DevOps
+description: Container, CI/CD, Kubernetes, and deployment rules for Docker, Compose, and YAML files.
 applyTo: "**/{Dockerfile,docker-compose*.yml,*.bicep,*.tf,*.yaml,*.yml}"
 ---
 # DevOps and Delivery

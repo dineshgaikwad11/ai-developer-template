@@ -1,9 +1,12 @@
+---
+description: Restructure code safely while preserving behavior and public contracts.
+agent: agent
+argument-hint: Goal, invariants/contracts to preserve, target modules
+---
 # Safe Refactoring Prompt
 
 ## Goal
-- Desired structural improvement: [goal]
-- Invariants and public contracts to preserve: [contracts]
-- Target modules: [paths]
+Use the user's message for: the structural improvement, the invariants and public contracts to preserve, and the target modules. Apply the `testing` skill to capture behavior first.
 
 ## Rules
 1. Capture current behavior with focused tests or characterization checks before restructuring.
