@@ -1,4 +1,4 @@
-# AI Developer Template
+# ai-developer-template
 
 A production-minded starter for a Clean Architecture ASP.NET Core API and a feature-first React + TypeScript application. The template includes a working health-check vertical slice, engineering instructions, reusable AI prompts, CI, local containers, and setup scripts.
 
